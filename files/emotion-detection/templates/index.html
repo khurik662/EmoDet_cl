@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emotion Detection · Live</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <span class="brand-dot"></span>
+            <h1>Live Emotion Detector</h1>
+        </div>
+        <div id="status" class="status status--idle">
+            <span class="status-dot"></span>
+            <span class="status-text">Initializing…</span>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- ---------------- Video + overlay ---------------- -->
+        <section class="video-panel">
+            <div class="video-wrap" id="videoWrap">
+                <video id="video" autoplay muted playsinline></video>
+                <canvas id="overlay"></canvas>
+                <div class="video-placeholder" id="placeholder">
+                    <div class="placeholder-icon">📷</div>
+                    <div>Click <strong>Start Camera</strong> to begin.</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn" class="btn btn--primary">Start Camera</button>
+                <button id="stopBtn"  class="btn btn--ghost" disabled>Stop</button>
+                <button id="snapBtn"  class="btn btn--ghost" disabled>📸 Snapshot</button>
+                <div class="controls-right">
+                    <label class="range-label">
+                        Analysis rate
+                        <input id="rate" type="range" min="200" max="1500" step="100" value="500" />
+                        <span id="rateVal">500 ms</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------- Emotion display ---------------- -->
+        <aside class="emotion-panel">
+            <div class="dominant-card">
+                <div class="dominant-label">Dominant emotion</div>
+                <div id="dominantEmoji" class="dominant-emoji">—</div>
+                <div id="dominantName" class="dominant-name">waiting…</div>
+                <div id="dominantScore" class="dominant-score">—</div>
+            </div>
+
+            <h2 class="bars-title">Confidence scores</h2>
+            <div class="bars" id="bars">
+                {% for e in emotions %}
+                <div class="bar-row" data-emotion="{{ e }}">
+                    <span class="bar-label">{{ e }}</span>
+                    <div class="bar-track">
+                        <div class="bar-fill bar--{{ e }}" style="width: 0%"></div>
+                    </div>
+                    <span class="bar-value">0%</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="faceCount">0</div>
+                    <div class="stat-label">Faces</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="fps">0.0</div>
+                    <div class="stat-label">Analyses / s</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="latency">—</div>
+                    <div class="stat-label">Latency</div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="app-footer">
+        <p>Powered by DeepFace · Flask · OpenCV · <span id="browserNote">Runs entirely in your browser + a Flask backend.</span></p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

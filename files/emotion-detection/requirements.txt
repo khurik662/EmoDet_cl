@@ -1,0 +1,21 @@
+# ----------------------------------------------------------------
+# Emotion Detection — Python dependencies
+# ----------------------------------------------------------------
+# Tested on Python 3.10 and 3.11.
+# DeepFace pulls in TensorFlow, which is a heavy install (~400 MB).
+# ----------------------------------------------------------------
+
+# Deep learning / emotion model
+deepface>=0.0.93
+tensorflow>=2.13,<2.17      # DeepFace requires TensorFlow
+
+# Computer vision & images
+opencv-python>=4.8
+numpy>=1.23
+Pillow>=10.0
+
+# Web backend
+Flask>=3.0
+
+# Production server (optional — for deployment)
+gunicorn>=21.2 ; sys_platform != "win32"
