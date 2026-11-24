@@ -2,6 +2,14 @@
 
 A Python computer vision demo that estimates facial expression labels from webcam frames. It includes a Flask browser interface and an OpenCV desktop interface. Both use the same DeepFace detector.
 
+## Demo
+
+[![EmoDet web interface detecting one face and displaying expression scores](emodet-preview.jpg)](emodet-demo.gif)
+
+[Watch the short GIF](emodet-demo.gif) · 162 KB
+
+The Flask app analyzed a synthetic portrait fed through the browser as a test stream. The face box, expression scores, and timing shown here come from the running app. The scores describe this sample and do not measure model accuracy.
+
 ## Run locally
 
 The project documents Python 3.10 and 3.11. On macOS or Linux, create a virtual environment and install the dependencies from the application directory.
